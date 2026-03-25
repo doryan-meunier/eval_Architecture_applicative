@@ -1,6 +1,15 @@
-class Student:
-    def __init__(self, name, grade_math, grade_english, grade_science):
+class Subject:
+    def __init__(self, name):
         self.name = name
-        self.grade_math = grade_math
-        self.grade_english = grade_english
-        self.grade_science = grade_science
+
+
+class Grade:
+    def __init__(self, subject, value):
+        self.subject = subject
+        self.value = value
+
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades

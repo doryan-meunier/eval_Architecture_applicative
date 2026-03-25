@@ -28,6 +28,17 @@ class SchoolClass:
         sorted_students = sorted(self.students, key=lambda s: s.grade_math, reverse=True)
         for student in sorted_students:
             print(student.name, student.grade_math)
+    
+    def rank_matter_2(self):
+        sorted_students = sorted(self.students, key=lambda s: s.grade_english, reverse=True)
+        for student in sorted_students:
+            print(student.name, student.grade_english)
+
+    def rank_matter_3(self):
+        sorted_students = sorted(self.students, key=lambda s: s.grade_science, reverse=True)
+        for student in sorted_students:
+            print(student.name, student.grade_science)
+
 
 school_class = SchoolClass()
 school_class.add_student(Student('J', 10, 12, 13))
@@ -35,3 +46,5 @@ school_class.add_student(Student('A', 8, 2, 17))
 school_class.add_student(Student('V', 9, 14, 14))
 
 school_class.rank_matter_1()
+school_class.rank_matter_2()
+school_class.rank_matter_3()

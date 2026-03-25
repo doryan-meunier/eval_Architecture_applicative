@@ -104,6 +104,15 @@ class SchoolClass(Iterable):
             print(student.name, student.grade_science)
 
 
+class SchoolClassWithHistory(SchoolClass):
+    def __init__(self, school_class):
+        super().__init__()
+        self.students = school_class.students
+
+    def get_iterator_4(self):
+        return StudentIterator4(self.students)
+
+
 school_class = SchoolClass()
 school_class.add_student(StudentWithHistory(Student('J', 10, 12, 13), 15))
 school_class.add_student(StudentWithHistory(Student('A', 8, 2, 17), 11))
@@ -118,5 +127,6 @@ for student in StudentIterator2(school_class.students):
 for student in StudentIterator3(school_class.students):
     print(student.name, student.grade_science)
 
-for student in StudentIterator4(school_class.students):
+school_class_with_history = SchoolClassWithHistory(school_class)
+for student in school_class_with_history.get_iterator_4():
     print(student.name, student.grade_history)

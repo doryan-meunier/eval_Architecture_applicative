@@ -78,7 +78,16 @@ class StudentIterator4(Iterator):
         return student
 
 
-class SchoolClass(Iterable):
+class SchoolClassSingleton(type):
+    instance = None
+
+    def __call__(cls, *args, **kwargs):
+        if cls.instance is None:
+            cls.instance = super().__call__(*args, **kwargs)
+        return cls.instance
+
+
+class SchoolClass(Iterable, metaclass=SchoolClassSingleton):
     def __init__(self):
         self.students = []
 
@@ -105,10 +114,6 @@ class SchoolClass(Iterable):
 
 
 class SchoolClassWithHistory(SchoolClass):
-    def __init__(self, school_class):
-        super().__init__()
-        self.students = school_class.students
-
     def get_iterator_4(self):
         return StudentIterator4(self.students)
 
@@ -117,6 +122,9 @@ school_class = SchoolClass()
 school_class.add_student(StudentWithHistory(Student('J', 10, 12, 13), 15))
 school_class.add_student(StudentWithHistory(Student('A', 8, 2, 17), 11))
 school_class.add_student(StudentWithHistory(Student('V', 9, 14, 14), 7))
+
+school_class2 = SchoolClass()
+assert school_class is school_class2
 
 for student in school_class:
     print(student.name, student.grade_math)
@@ -127,6 +135,6 @@ for student in StudentIterator2(school_class.students):
 for student in StudentIterator3(school_class.students):
     print(student.name, student.grade_science)
 
-school_class_with_history = SchoolClassWithHistory(school_class)
+school_class_with_history = SchoolClassWithHistory()
 for student in school_class_with_history.get_iterator_4():
     print(student.name, student.grade_history)
